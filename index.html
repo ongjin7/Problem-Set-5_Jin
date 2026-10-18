@@ -112,6 +112,12 @@
   .f.tint-rose{background:var(--rose);border-color:#d4747440} .f.tint-rose h3 .n{background:var(--rose-ink);color:#fff}
   .f.tint-amber{background:var(--amber);border-color:#d9a13a40} .f.tint-amber h3 .n{background:var(--amber-ink);color:#fff}
 
+  /* Collaboration log: time-and-cost row with a headline figure */
+  .f.time{flex-direction:row;align-items:center;gap:2.4cqw}
+  .stat{flex:none;font-family:Fraunces,serif;font-size:3.4cqw;line-height:1;color:var(--ink);letter-spacing:-.02em}
+  .stat small{display:block;font-family:Inter,sans-serif;font-size:.85cqw;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:.5cqw}
+  .time-body{display:flex;flex-direction:column;gap:.6cqw;border-left:1px solid var(--line);padding-left:2.4cqw}
+
   footer{display:flex;justify-content:space-between;align-items:center;font-size:.95cqw;color:var(--muted);border-top:1px solid var(--line);padding-top:1.2cqw}
   .legend{display:flex;gap:1.8cqw}
   .legend span{display:inline-flex;align-items:center;gap:.5cqw}
@@ -152,6 +158,9 @@
     .fields.two,.fields.three{grid-template-columns:1fr}
     .f p+p{margin-top:8px}
     .sec-label{font-size:11px;gap:10px}
+    .f.time{flex-direction:column;align-items:flex-start;gap:12px}
+    .stat{font-size:34px} .stat small{font-size:10.5px;margin-top:6px}
+    .time-body{border-left:0;padding-left:0;border-top:1px solid var(--line);padding-top:12px;gap:8px}
   }
 </style>
 </head>
@@ -315,6 +324,47 @@
     <li class="f tint-amber">
       <h3><span class="n">→</span>What would I change?</h3>
       <p>I would further improve on the data collection form and use a more robust AI to assess the content. I would also definitely run more test on the output before launching the product live to the airline customer service team.</p>
+    </li>
+  </ol>
+</section>
+
+<section class="card" id="collaboration-log">
+  <header class="card-head">
+    <div>
+      <div class="eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="8" cy="8" r="3"/><circle cx="16" cy="16" r="3"/><path d="M10.5 10.5l3 3M16 5h3v3M8 19H5v-3"/></svg>
+        Problem Set 5 · Human × AI
+      </div>
+      <h2>Collaboration <em>Log</em></h2>
+    </div>
+  </header>
+
+  <ol class="fields">
+    <li class="f">
+      <h3><span class="n">1</span>What I delegated to AI</h3>
+      <p>I used AI to help design MB airline’s branding, read customer feedback to generate recommendations and generative output (e.g. emails) and to format professional HTML emails. Within the workflow, AI assessed customer feedback, recommended follow-up actions, and prepared personalised customer email drafts like an assistant.</p>
+    </li>
+    <li class="f wide">
+      <h3><span class="n">2</span>What I checked and how</h3>
+      <p>I submitted many test responses (positive, negative cases) and compared the original form answers with Zapier’s inputs, generated assessments, and Gmail outputs. I checked contact consent, recommendations, personalisation, email formatting, and whether the filter allowed a customer draft only when follow-up and email permission were both indicated.</p>
+    </li>
+
+    <li class="f never">
+      <h3><span class="n">3</span>One AI error I caught</h3>
+      <p>One generated report reversed the customer’s email and mobile consent, recommending a call when the customer had permitted email but declined mobile contact. I revised the inputs to label each consent answer explicitly and tested again; a subsequent run correctly displayed <b>Email: Yes</b> and <b>Mobile: No</b> and recommended email follow-up. This showed why customer-contact decisions need checking against the original submission.</p>
+    </li>
+    <li class="f wide check">
+      <h3><span class="n">4</span>My role in the workflow</h3>
+      <p>I retained responsibility for reviewing the report, the original feedback and deciding whether the recommendations were appropriate and what engagement model I should take. Customer replies were saved as drafts for review rather than sent automatically, so I can edit them and send them out if required.</p>
+      <p>Overall, I work alongside AI but retain full control of the entire process of priority customer management. The report is helpful as a second opinion to me, and a good way for me to be notified of customer feedback submissions.</p>
+    </li>
+
+    <li class="f full time">
+      <div class="stat">≈ 6 hours<small>Build, test &amp; refine</small></div>
+      <div class="time-body">
+        <h3><span class="n">5</span>Time and cost</h3>
+        <p>I spent approximately 6 hours building, testing, and refining the workflow. There is also additional cost in ideating (design) and to slightly enhance the output quality (UI/UX).</p>
+      </div>
     </li>
   </ol>
 </section>
