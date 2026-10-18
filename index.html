@@ -102,6 +102,16 @@
   .step.ai{background:var(--amber);border-color:#d9a13a40} .step.ai b{color:var(--amber-ink)}
   .step.draft{background:var(--rose);border-color:#d4747440} .step.draft b{color:var(--rose-ink)}
 
+  /* Question 1 answers and reflections: same card, two-up and three-up grids */
+  .fields.two{grid-template-columns:repeat(2,1fr)}
+  .fields.three{grid-template-columns:repeat(3,1fr)}
+  .f p+p{margin-top:.5cqw}
+  .sec-label{font-size:.95cqw;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:1cqw}
+  .sec-label::after{content:"";height:1px;flex:1;background:var(--line)}
+  .f.tint-green{background:var(--green);border-color:#6aaa5c33} .f.tint-green h3 .n{background:var(--green-ink);color:#fff}
+  .f.tint-rose{background:var(--rose);border-color:#d4747440} .f.tint-rose h3 .n{background:var(--rose-ink);color:#fff}
+  .f.tint-amber{background:var(--amber);border-color:#d9a13a40} .f.tint-amber h3 .n{background:var(--amber-ink);color:#fff}
+
   footer{display:flex;justify-content:space-between;align-items:center;font-size:.95cqw;color:var(--muted);border-top:1px solid var(--line);padding-top:1.2cqw}
   .legend{display:flex;gap:1.8cqw}
   .legend span{display:inline-flex;align-items:center;gap:.5cqw}
@@ -139,6 +149,9 @@
     .step{border-radius:10px;padding:10px 12px;gap:3px}
     .step:not(:last-child)::after{content:"↓";right:auto;left:50%;top:auto;bottom:-20px;transform:translateX(-50%);font-size:14px}
     .step b{font-size:14px} .step span{font-size:13px}
+    .fields.two,.fields.three{grid-template-columns:1fr}
+    .f p+p{margin-top:8px}
+    .sec-label{font-size:11px;gap:10px}
   }
 </style>
 </head>
@@ -252,6 +265,56 @@
     <li class="f wide check">
       <h3><span class="n">5</span>Where a person checks</h3>
       <p>I act as the customer service manager, reviewing the original feedback, consent, assessment, and draft before deciding on my approach for customer engagement. In this case, AI provides me a guideline and assists me, but I lead the entire activity as an experienced customer service professional.</p>
+    </li>
+  </ol>
+</section>
+
+<section class="card" id="answers">
+  <header class="card-head">
+    <div>
+      <div class="eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2zM8 7h6M8 11h6"/></svg>
+        Problem Set 5 · Question 1
+      </div>
+      <h2>My answers to <em>Question 1</em></h2>
+    </div>
+  </header>
+
+  <ol class="fields two">
+    <li class="f">
+      <h3><span class="n">a</span>My quadrant</h3>
+      <p>My MB Airline customer-feedback agent sits in “A person decides, AI alongside” (bottom right). It supports the customer service manager by assessing feedback, recommending follow-up actions, and preparing a customer email draft. The manager retains responsibility for deciding how to handle the situation.</p>
+    </li>
+    <li class="f">
+      <h3><span class="n">b</span>The two questions</h3>
+      <p>The central task is work with no single right answer. A dissatisfied customer could require a personalised apology, further investigation, or a call where consent permits. The appropriate response depends on the circumstances and professional judgment. In my runs, the agent proposed departmental referrals and personalised replies, but these were options for consideration rather than uniquely correct solutions.</p>
+      <p>I classify the task as work that either a person or AI can do alone, because either can produce an assessment and proposed reply. A manager could complete this work manually and the agent can independently generate a report and draft. Using both improves efficiency, but collaboration is not essential to producing those initial outputs.</p>
+    </li>
+    <li class="f">
+      <h3><span class="n">c</span>The person in the loop</h3>
+      <p>The person (which is myself) sits outside the loop, as after looking at the output, I can determine the communication and service-recovery action. The manager checks the original feedback, consent, factual accuracy, tone, urgency, and whether the recommendations follow airline policy. The report remains as a helpful tool for the manager.</p>
+      <p>The agent may independently generate internal reports, suggest next steps, and save email drafts. It does not send customer replies or authorise compensation. If it instead managed the investigation and follow-up process, with people judging at defined checkpoints, it would move towards “Agents run it, a person judges” (at the top right).</p>
+    </li>
+    <li class="f">
+      <h3><span class="n">d</span>My group’s view</h3>
+      <p>I agree with our group’s placements. Expense claims fit “A person leads, AI inside” when AI checks claims against evidence while a person resolves exceptions and approves them. A scheduled HR leave report fits “AI alone, with checks” because it follows defined rules and can be checked periodically.</p>
+      <p>The customer relationship management agent’s placement in “Agents run it, a person judges” is debatable but I broadly can accept it. I agree that customer handling has no single right answer, but the core question would be whether people and AI necessarily have to work together to develop these recommendations. If the agent simply suggests options and the person independently decides what to do, it fits “A person decides, AI alongside”, like my MBairline assistant. The top-right placement would be more appropriate if the agent managed the broader process which is something a manager cannot do alone, with a person judging at specific checkpoints.</p>
+    </li>
+  </ol>
+
+  <div class="sec-label">Brief reflections</div>
+  <ol class="fields three">
+    <li class="f tint-green">
+      <h3><span class="n">✓</span>Where did my agent suit the task?</h3>
+      <p>My agent suited the task of turning customer feedback into a concise management briefing report and personalised reply draft, while leaving the final service-recovery decision and management to a person. It only serves as guidance.</p>
+    </li>
+    <li class="f tint-rose">
+      <h3><span class="n">!</span>Where it failed?</h3>
+      <p>It failed in one test by reversing email and mobile consent, which I eventually fixed, and having some generative errors due to robustness in prompt writing.</p>
+    </li>
+    <li class="f tint-amber">
+      <h3><span class="n">→</span>What would I change?</h3>
+      <p>I would further improve on the data collection form and use a more robust AI to assess the content. I would also definitely run more test on the output before launching the product live to the airline customer service team.</p>
     </li>
   </ol>
 </section>
