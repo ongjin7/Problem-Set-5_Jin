@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Group 4 Quadrant Submission</title>
+<meta name="description" content="Human–AI task matrix: catching missed emails and drafting replies every night at 9:00 PM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f1ea; --paper:#fbfaf6; --ink:#1d1b18; --muted:#6b665d; --line:#e2ddd2;
+    --blue:#e3ecfb;  --blue-ink:#2c4f8f;  --blue-dot:#5b83d1;
+    --amber:#fbeccd; --amber-ink:#8a5a0b; --amber-dot:#d9a13a;
+    --green:#e1f0dc; --green-ink:#336b2a; --green-dot:#6aaa5c;
+    --rose:#f8e0e0;  --rose-ink:#8f3434;  --rose-dot:#d47474;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{
+    background:var(--bg);
+    background-image:radial-gradient(circle at 15% 10%,#fff8 0,transparent 40%),radial-gradient(circle at 85% 90%,#e9e3d6 0,transparent 45%);
+    color:var(--ink);font-family:Inter,system-ui,sans-serif;
+    display:grid;place-items:center;padding:16px;-webkit-font-smoothing:antialiased;
+  }
+
+  /* 16:9 slide that scales to fit the viewport; all sizes in container units */
+  .slide{
+    width:min(calc(100vw - 32px), calc((100vh - 32px) * 16 / 9));
+    aspect-ratio:16/9;container-type:inline-size;
+    background:var(--paper);border:1px solid var(--line);border-radius:1.2cqw;
+    box-shadow:0 1px 2px #0000000a,0 2.5cqw 6cqw -2cqw #3a2f1a26;
+    padding:2.6cqw 4cqw 2.2cqw;display:grid;grid-template-rows:auto 1fr auto;gap:1.4cqw;
+  }
+
+  header{display:flex;justify-content:space-between;align-items:flex-end;gap:3cqw}
+  .eyebrow{display:inline-flex;align-items:center;gap:.6cqw;font-size:.95cqw;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.9cqw}
+  .eyebrow svg{width:1.1cqw;height:1.1cqw}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:400;font-size:3cqw;line-height:1.1;letter-spacing:-.01em;max-width:52cqw}
+  h1 em{font-style:italic;color:#7a5a2b}
+  .clock{flex:none;text-align:right;font-size:1cqw;color:var(--muted);line-height:1.5}
+  .clock b{display:block;font-family:Fraunces,serif;font-weight:600;font-size:2.4cqw;color:var(--ink);letter-spacing:-.01em}
+
+  .matrix{display:grid;grid-template-columns:9cqw 1fr 1fr;grid-template-rows:auto 1fr 1fr;gap:.9cqw;min-height:0}
+  .col-h{font-size:1.05cqw;font-weight:600;color:var(--muted);text-align:center;display:flex;align-items:center;justify-content:center;gap:.6cqw}
+  .col-h::before,.col-h::after{content:"";height:1px;flex:1;background:var(--line)}
+  .row-h{font-size:1.05cqw;font-weight:600;color:var(--muted);display:flex;align-items:center;justify-content:flex-end;text-align:right;padding-right:.6cqw;line-height:1.35}
+
+  .q{border-radius:1cqw;padding:1.5cqw 1.7cqw;display:flex;flex-direction:column;gap:.7cqw;position:relative;overflow:hidden;
+     border:1px solid #0000000d;transition:transform .25s ease,box-shadow .25s ease}
+  .q:hover{transform:translateY(-.2cqw);box-shadow:0 1.2cqw 2.5cqw -1.2cqw #00000026}
+  .q .tag{position:absolute;top:1.4cqw;right:1.6cqw;font-family:Fraunces,serif;font-size:2.6cqw;opacity:.18;line-height:1}
+  .q h2{font-size:1.45cqw;font-weight:600;letter-spacing:-.005em}
+  .q .sub{font-size:1cqw;opacity:.75;margin-top:-.3cqw}
+  .q ul{list-style:none;display:grid;gap:.55cqw;margin-top:.3cqw}
+  .q li{font-size:1.15cqw;line-height:1.4;padding-left:1.4cqw;position:relative;color:var(--ink)}
+  .q li::before{content:"";position:absolute;left:0;top:.55cqw;width:.55cqw;height:.55cqw;border-radius:50%;background:var(--dot)}
+  .blue{background:var(--blue);color:var(--blue-ink);--dot:var(--blue-dot)}
+  .amber{background:var(--amber);color:var(--amber-ink);--dot:var(--amber-dot)}
+  .green{background:var(--green);color:var(--green-ink);--dot:var(--green-dot)}
+  .rose{background:var(--rose);color:var(--rose-ink);--dot:var(--rose-dot)}
+
+  footer{display:flex;justify-content:space-between;align-items:center;font-size:.95cqw;color:var(--muted);border-top:1px solid var(--line);padding-top:1.2cqw}
+  .legend{display:flex;gap:1.8cqw}
+  .legend span{display:inline-flex;align-items:center;gap:.5cqw}
+  .legend i{width:.8cqw;height:.8cqw;border-radius:.2cqw;display:inline-block}
+
+  /* Phone / narrow portrait: drop the fixed ratio and stack */
+  @media (max-width:760px), (max-aspect-ratio:1/1){
+    body{display:block;padding:16px}
+    .slide{width:100%;aspect-ratio:auto;container-type:normal;border-radius:14px;padding:22px 18px;gap:20px}
+    header{flex-direction:column;align-items:flex-start;gap:12px}
+    .eyebrow{font-size:11px;gap:6px;margin-bottom:8px} .eyebrow svg{width:13px;height:13px}
+    h1{font-size:26px;max-width:none}
+    .clock{text-align:left;font-size:12px} .clock b{font-size:22px}
+    .matrix{grid-template-columns:1fr;grid-template-rows:none;gap:12px}
+    .col-h,.row-h,.corner{display:none}
+    .q{border-radius:12px;padding:18px;gap:8px}
+    .q .tag{font-size:30px;top:14px;right:16px}
+    .q h2{font-size:17px} .q .sub{font-size:13px;margin-top:-4px}
+    .q ul{gap:6px} .q li{font-size:14.5px;padding-left:16px} .q li::before{top:7px;width:7px;height:7px}
+    .q::after{content:attr(data-axes);font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.6;order:-1}
+    footer{flex-direction:column;align-items:flex-start;gap:10px;font-size:12px;padding-top:14px}
+    .legend{flex-wrap:wrap;gap:12px} .legend i{width:10px;height:10px;border-radius:3px}
+  }
+</style>
+</head>
+<body>
+<main class="slide">
+  <header>
+    <div>
+      <div class="eyebrow">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        Human × AI task matrix
+      </div>
+      <h1>Group 4 <em>Quadrant</em> Submission</h1>
+    </div>
+  </header>
+
+  <section class="matrix">
+    <div class="corner"></div>
+    <div class="col-h">Work with a right answer</div>
+    <div class="col-h">No single right answer</div>
+
+    <div class="row-h">People and AI<br>must work together</div>
+    <article class="q blue" data-axes="Right answer · Work together">
+      <span class="tag">01</span>
+      <h2>A person leads, AI inside</h2>
+      <p class="sub">There's a correct answer, but only I know the rules</p>
+      <ul>
+        <li>Expense claims for out-of-pocket business expenditure</li>
+      </ul>
+    </article>
+    <article class="q amber" data-axes="No single answer · Work together">
+      <span class="tag">02</span>
+      <h2>Agents run it, a person judges</h2>
+      <p class="sub">Many good versions: AI drafts, I pick</p>
+      <ul>
+        <li>Customer relationship management agent that recommends how to act in different scenarios, for me to judge and choose</li>
+      </ul>
+    </article>
+
+    <div class="row-h">Either can do<br>it alone</div>
+    <article class="q green" data-axes="Right answer · Either alone">
+      <span class="tag">03</span>
+      <h2>AI alone, with checks</h2>
+      <p class="sub">Rule-based and fully automated</p>
+      <ul>
+        <li>HR leave report shared daily at a scheduled time</li>
+        <li>Morning weather notification at 7:00 AM to plan my day</li>
+      </ul>
+    </article>
+    <article class="q rose" data-axes="No single answer · Either alone">
+      <span class="tag">04</span>
+      <h2>A person decides, AI alongside</h2>
+      <p class="sub">Judgment and consequences: I own it</p>
+      <ul>
+        <li>Customer support assistant for Priority airline customers</li>
+      </ul>
+    </article>
+  </section>
+
+  <footer>
+    <div class="legend">
+      <span><i style="background:var(--green-dot)"></i>Automate</span>
+      <span><i style="background:var(--blue-dot)"></i>Encode my rules</span>
+      <span><i style="background:var(--amber-dot)"></i>Generate options</span>
+      <span><i style="background:var(--rose-dot)"></i>Human sign-off</span>
+    </div>
+  </footer>
+</main>
+</body>
+</html>
